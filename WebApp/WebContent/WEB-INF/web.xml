@@ -9,14 +9,52 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
-  
+  <!-- 
+  	servlet-name 标示 可随意写
+  	servlet-class 具体包名下的文件
+  	url-pattern 访问路径 可随意写.也可以使用占位符 /* , */servlet等
+	init-param 初始化参数 通过ServletConfig获取
+	context-param 初始化参数 通过ServletContext的方法获取
+   -->
   <servlet>
-  	<servlet-name>a</servlet-name>
-  	<servlet-class>com.ly.servlet</servlet-class>
+  	<servlet-name>a</servlet-name> 
+  	<servlet-class>com.ly.servlet.AServlet</servlet-class>
+  	<init-param>
+  		<param-name>name</param-name>
+  		<param-value>value</param-value>
+  	</init-param>
   </servlet>
   <servlet-mapping>
   	<servlet-name>a</servlet-name>
   	<url-pattern>/aservlet</url-pattern>
   </servlet-mapping>
+  
+  <context-param>
+  	<param-name>contentname</param-name>
+  	<param-value>contentValue</param-value>
+  </context-param>
+  
+  <!-- =========================================================== -->
+  <!-- 
+  	如果两个filter拦截同一个请求，那么在web.xml中配置filter-mapping的位置前后决定拦截先后顺序
+  	url-pattern 拦截的servlet中的url-pattern
+  	dispatcher 拦截的方式
+  	REQUEST 默认方式，拦截直接请求
+  	FORWARD 拦截转发
+  	INCLUDE 包含
+  	ERROR 出错
+  	'[FORWARD, INCLUDE, REQUEST, ASYNC, ERROR]'
+   -->
+  <filter>
+  	<filter-name>f</filter-name>
+  	<filter-class>com.ly.filter.AFilter</filter-class>
+  </filter>
+  <filter-mapping>
+  	<filter-name>f</filter-name>
+  	<url-pattern>/aservlet</url-pattern>
+<!--   	<servlet-name>a</servlet-name> -->
+	<dispatcher>REQUEST</dispatcher>
+  </filter-mapping>
+  
   
 </web-app>
